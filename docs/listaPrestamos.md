@@ -23,17 +23,41 @@ https://reactnative.dev/docs/flatlist
 
 ### Layout
 
-Al definir el layout en el ancho (width) y alto (height):
+A diferencia de React los estilos no pueden estar en un archivo de estilos css, los componentes aceptan la propiedad `style` donde se pueden escribir los estilos en linea pero es recomendado definir multiples estilos utilizando el metodo `StyleSheet.create`:
 
-* para el ancho del textview que muestra la información de un libro consideraremos el tamaño de la pantalla: match_parent
-* para el alto, nos interesa que aparezca toda la información del libro sin truncar, por eso usamos wrap_content
+```tsx
+const styles = StyleSheet.create({
+    lista: {
+        flex: 1,
+        backgroundColor: 'rgb(242, 242, 242)'
+    },
+    prestamo: {
+        paddingVertical: 10,
+        paddingHorizontal: 18,
+        backgroundColor: 'white',
+        flexDirection: 'row'
+    },
+    imgContacto: {
+        height: 50,
+        width: 50,
+        borderRadius: 50,
+        marginRight: 14
+    },
+    libro: {
+        fontSize: 18,
+        color: 'grey'
+    },
+    datos: {
+        fontSize: 16
+    }
+})
+```
 
-## Controller
+## La lista de préstamos
 
-El juego de datos se inicializa a partir de una lista de préstamos, que creamos en el singleton PrestamosAppBootstrap y que pueden ver en caso de interés.
+El juego de datos se inicializa a partir de una lista de préstamos, que creamos en PrestamosService y que pueden ver en caso de interés.
 
-## Adapter entre ListView y la lista de préstamos
-
+Para cargar la lista de prestamos se lo pediremos al repositorio.
 ```tsx
 cargarPrestamos = (): void => {
     const prestamos = repoPrestamos.getPrestamosPendientes()
@@ -41,9 +65,7 @@ cargarPrestamos = (): void => {
 }
 ```
 
-Esto permite asociar la lista de elementos de la ListView con un conjunto de datos:
-
-El PrestamoAdapter permite que por cada préstamo visualicemos:
+Por cada préstamo visualicemos:
 
 * la imagen del contacto al que le prestamos el libro
 * el título del libro
@@ -51,7 +73,7 @@ El PrestamoAdapter permite que por cada préstamo visualicemos:
 
 ### Layout de un préstamo como fila
 
-Creamos un nuevo xml (parados sobre res/layout hacemos new Android XML File) que define la vista de cada fila. La llamamos prestamo_row.xml:
+Creamos un metodo el le pasamos al componente FlatList que define la vista de cada fila:
 
 ```tsx
 renderPrestamo = ({ item }: { item: Prestamo }): JSX.Element => {
@@ -72,18 +94,10 @@ renderPrestamo = ({ item }: { item: Prestamo }): JSX.Element => {
 }
 ```
 
-Para eso definimos un primer layout que será horizontal, donde ubicaremos la foto del contacto. Luego otro layout vertical permitirá que pongamos la descripción del libro y los datos del préstamo con un tamaño más chico (textAppearanceSmall).
+Para eso definimos un primer layout que será horizontal, donde ubicaremos la foto del contacto. Luego otro layout vertical permitirá que pongamos la descripción del libro y los datos del préstamo con un tamaño más chico.
 
-![image](../images/layoutPrestamo.png)
+![image](./images/layoutPrestamo.png)
 
-### Controller de la fila de un préstamo
+---
 
-La clase PrestamoAdapter por un lado conoce a la lista de préstamos pendientes (una lista **mutable**), pero también ajusta el contenido de un préstamo al xml que acabamos de definir:
-
-```tsx
-
-```
-
-Mientras que en otros ejemplos utilizamos un Recycler View, aquí desacoplamos el objeto que adapta la vista de una fila de la actividad principal (`MainActivity.kt`). [Pueden estudiar una comparación de ambas formas de visualizar colecciones en Android aquí.](https://stackoverflow.com/questions/26728651/recyclerview-vs-listview).
-
-![image](./images/prestamosListViewClassDiagram.png)
+Aunque aqui usamos FlatList para mostrar la lista tambien podriamos usar ScrollView y manejar nosotros mismos la visualizacion. [Pueden estudiar una comparación de ambas formas de visualizar listas aquí.](https://reactnative.dev/docs/scrollview)

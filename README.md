@@ -132,6 +132,17 @@ Nuestro dominio es bastante sencillo:
 * ¿dónde guardamos los préstamos? ¿necesitaremos identificadores unívocos?
 * ¿cómo navegar la aplicación?
 
+---
+
+## Explicaciones adicionales
+
+* [Pantalla principal: lista de préstamos](docs/listaPrestamos.md)
+<!-- * [Contactar un deudor](docs/contactarDeudor.md)
+* [Nuevo préstamo](docs/nuevoPrestamo.md)
+* [Interacción con API de Contactos de Android](docs/apiContactos.md)
+* [Persistencia a un medio local con SQLite](docs/persistenciaLocal.md) -->
+
+
 
 ---
 
