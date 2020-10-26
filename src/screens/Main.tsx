@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react'
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
+import { FlatList, Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import Prestamo from '../domain/Prestamo'
 import { repoPrestamos } from '../services/PrestamosConfig'
-
-export default class Main extends PureComponent<MainProps, MainState> {
-    constructor (props: MainProps) {
+import { ActionSheetProps, connectActionSheet } from '@expo/react-native-action-sheet'
+import * as Linking from 'expo-linking'
+import { FontAwesome } from '@expo/vector-icons'
+class Main extends PureComponent<MainProps & ActionSheetProps, MainState> {
+    constructor (props: MainProps & ActionSheetProps) {
         super(props)
         this.state = {
             prestamos: []
@@ -19,12 +21,37 @@ export default class Main extends PureComponent<MainProps, MainState> {
         this.setState({ prestamos })
     }
 
+    opcionesPrestamo = (prestamo: Prestamo) => {
+        this.props.showActionSheetWithOptions(
+            {
+                title: 'Elige una opción',
+                options: [ 'Llamar', 'Enviar email', 'Cancelar' ],
+                icons: [
+                    <FontAwesome key='phone' name='phone' size={24} />,
+                    <FontAwesome key='envelope' name='envelope' size={24} />,
+                    <FontAwesome key='close' name='close' size={24} />
+                ],
+                cancelButtonIndex: 2,
+            },
+            buttonIndex => {
+                if (buttonIndex === 0) {
+                    Linking.openURL(`tel:${ prestamo.telefono() }`)
+                } else if (buttonIndex === 1) {
+                    Linking.openURL(`mailto:${ prestamo.contactoMail() }`)
+                }
+            },
+        )
+    }
+
     renderPrestamo = ({ item }: { item: Prestamo }): JSX.Element => {
         return (
-            <View style={ styles.prestamo }>
+            <Pressable
+                style={ styles.prestamo }
+                onLongPress={ () => this.opcionesPrestamo(item) }
+                android_ripple={ { color: 'grey' } }>
                 <Image
                     style={ styles.imgContacto }
-                    source={ item.contacto.foto || require('../../assets/defaultContact.png')}
+                    source={ item.contacto.foto || require('../../assets/defaultContact.png') }
                     resizeMode='contain'
                     resizeMethod='resize'
                 />
@@ -32,7 +59,7 @@ export default class Main extends PureComponent<MainProps, MainState> {
                     <Text style={ styles.libro }>{ item.libro.toString() }</Text>
                     <Text style={ styles.datos }>{ item.datosPrestamo() }</Text>
                 </View>
-            </View>
+            </Pressable>
         )
     }
 
@@ -48,6 +75,8 @@ export default class Main extends PureComponent<MainProps, MainState> {
         )
     }
 }
+
+export default connectActionSheet(Main)
 
 type MainProps = {
 
