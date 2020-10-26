@@ -6,8 +6,14 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import Main from './src/screens/Main'
 import PrestamosService from './src/services/PrestamosService'
 import { ActionSheetProvider } from '@expo/react-native-action-sheet'
+import { Text } from 'react-native'
 
-const Stack = createStackNavigator()
+export type RootStackParamList = {
+    Prestamos: undefined
+    NuevoPrestamo: undefined
+}
+
+const Stack = createStackNavigator<RootStackParamList>()
 
 export default function App(): JSX.Element {
     useEffect(() => {
@@ -16,12 +22,17 @@ export default function App(): JSX.Element {
     return (
         <SafeAreaProvider>
             <ActionSheetProvider>
-                <NavigationContainer theme={DarkTheme}>
+                <NavigationContainer theme={ DarkTheme }>
                     <Stack.Navigator initialRouteName="Prestamos">
                         <Stack.Screen
                             name="Prestamos"
                             component={ Main }
                             options={ { title: 'Préstamos de libros' } } />
+                        <Stack.Screen
+                            name="NuevoPrestamo"
+                            options={ { title: 'Nuevo préstamo' } } >
+                            { () => <Text>Todavia no existe</Text> }
+                        </Stack.Screen>
                     </Stack.Navigator>
                 </NavigationContainer>
             </ActionSheetProvider>

@@ -136,6 +136,7 @@ Nuestro dominio es bastante sencillo:
 
 ## Explicaciones adicionales
 
+* [Pantallas, stacks y rutas](docs/rutasYPantallas.md)
 * [Pantalla principal: lista de préstamos](docs/listaPrestamos.md)
 * [Contactar un deudor](docs/contactarDeudor.md)
 <!-- * [Nuevo préstamo](docs/nuevoPrestamo.md)

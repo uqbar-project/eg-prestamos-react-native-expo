@@ -11,7 +11,7 @@ Cuando un usuario haga un "click largo" sobre un préstamo, activaremos el menú
 
 En este caso usaremos una dependencia que nos da una implementacion de `ActionSheet` para Android ademas de la nativa que ya existe para IOS.
 
-```shell
+```console
 expo install @expo/react-native-action-sheet
 ```
 
@@ -38,14 +38,12 @@ Conectamos el componente que utilizara el menu para recivir las props necesarias
 ```tsx
 import { ActionSheetProps, connectActionSheet } from '@expo/react-native-action-sheet'
 
-class Main extends PureComponent<MainProps & ActionSheetProps, MainState> {
-    constructor (props: MainProps & ActionSheetProps) {
-        super(props)
-        this.state = {
-            prestamos: []
-        }
-    }
+class Main extends PureComponent<MainProps, MainState> {
     ...
+}
+
+type MainProps = ActionSheetProps & {
+    navigation: MainScreenNavigationProp
 }
 
 export default connectActionSheet(Main)

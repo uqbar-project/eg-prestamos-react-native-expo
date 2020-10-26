@@ -5,8 +5,10 @@ import { repoPrestamos } from '../services/PrestamosConfig'
 import { ActionSheetProps, connectActionSheet } from '@expo/react-native-action-sheet'
 import * as Linking from 'expo-linking'
 import { FontAwesome } from '@expo/vector-icons'
-class Main extends PureComponent<MainProps & ActionSheetProps, MainState> {
-    constructor (props: MainProps & ActionSheetProps) {
+import { StackNavigationProp } from '@react-navigation/stack'
+import { RootStackParamList } from '../../App'
+class Main extends PureComponent<MainProps, MainState> {
+    constructor (props: MainProps) {
         super(props)
         this.state = {
             prestamos: []
@@ -78,8 +80,8 @@ class Main extends PureComponent<MainProps & ActionSheetProps, MainState> {
 
 export default connectActionSheet(Main)
 
-type MainProps = {
-
+type MainProps = ActionSheetProps & {
+    navigation: StackNavigationProp<RootStackParamList, 'Prestamos'>
 }
 
 type MainState = {
