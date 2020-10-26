@@ -27,7 +27,7 @@ export type RootStackParamList = {
 
 const Stack = createStackNavigator<RootStackParamList>()
 
-export default function App(): JSX.Element {
+export default function App(): ReactNode {
     return (
         <SafeAreaProvider>
             <NavigationContainer theme={DarkTheme}>

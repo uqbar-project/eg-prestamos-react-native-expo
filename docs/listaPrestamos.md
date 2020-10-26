@@ -5,7 +5,7 @@ La primera versión de nuestra pantalla es simple
 * FlatList de préstamos
 
 ```tsx
-render(): JSX.Element {
+render(): ReactNode {
     const { prestamos } = this.state
     return (
         <FlatList
@@ -76,7 +76,7 @@ Por cada préstamo visualicemos:
 Creamos un metodo el le pasamos al componente FlatList que define la vista de cada fila:
 
 ```tsx
-renderPrestamo = ({ item }: { item: Prestamo }): JSX.Element => {
+renderPrestamo = ({ item }: { item: Prestamo }): ReactElement => {
     return (
         <View style={ styles.prestamo }>
             <Image

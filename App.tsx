@@ -1,7 +1,7 @@
 import { NavigationContainer, DarkTheme } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { StatusBar } from 'expo-status-bar'
-import React, { useEffect } from 'react'
+import React, { ReactNode, useEffect } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import Main from './src/screens/Main'
 import PrestamosService from './src/services/PrestamosService'
@@ -15,7 +15,7 @@ export type RootStackParamList = {
 
 const Stack = createStackNavigator<RootStackParamList>()
 
-export default function App(): JSX.Element {
+export default function App(): ReactNode {
     useEffect(() => {
         PrestamosService.init()
     }, [])

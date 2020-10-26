@@ -20,7 +20,7 @@ Agregamos el `ActionSheetProvider` a nuestro componente de mayor nivel.
 ```tsx
 import { ActionSheetProvider } from '@expo/react-native-action-sheet'
 
-export default function App(): JSX.Element {
+export default function App(): ReactNode {
     ...
     return (
         <SafeAreaProvider>
@@ -76,7 +76,7 @@ Cada opción se define en el orden en que debe aparecer y un icono para cada una
 Tendremos que cambiar el componente base `View` por `Pressable` para poder detectar el "click largo".
 
 ```tsx
-renderPrestamo = ({ item }: { item: Prestamo }): JSX.Element => {
+renderPrestamo = ({ item }: { item: Prestamo }): ReactElement => {
     return (
         <Pressable
             style={ styles.prestamo }

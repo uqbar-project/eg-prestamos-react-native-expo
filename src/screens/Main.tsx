@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, ReactElement, ReactNode } from 'react'
 import { FlatList, Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import Prestamo from '../domain/Prestamo'
 import { repoPrestamos } from '../services/PrestamosConfig'
@@ -23,7 +23,7 @@ class Main extends PureComponent<MainProps, MainState> {
         this.setState({ prestamos })
     }
 
-    opcionesPrestamo = (prestamo: Prestamo) => {
+    opcionesPrestamo = (prestamo: Prestamo): void => {
         this.props.showActionSheetWithOptions(
             {
                 title: 'Elige una opción',
@@ -45,7 +45,7 @@ class Main extends PureComponent<MainProps, MainState> {
         )
     }
 
-    renderPrestamo = ({ item }: { item: Prestamo }): JSX.Element => {
+    renderPrestamo = ({ item }: { item: Prestamo }): ReactElement => {
         return (
             <Pressable
                 style={ styles.prestamo }
@@ -65,7 +65,7 @@ class Main extends PureComponent<MainProps, MainState> {
         )
     }
 
-    render(): JSX.Element {
+    render(): ReactNode {
         const { prestamos } = this.state
         return (
             <FlatList
