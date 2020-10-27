@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { StatusBar } from 'expo-status-bar'
 import React, { ReactNode, useEffect } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import Main from './src/screens/Main'
+import PrestamosScreen from './src/screens/PrestamosScreen'
 import PrestamosService from './src/services/PrestamosService'
 import { ActionSheetProvider } from '@expo/react-native-action-sheet'
 import { Text } from 'react-native'
@@ -26,7 +26,7 @@ export default function App(): ReactNode {
                     <Stack.Navigator initialRouteName="Prestamos">
                         <Stack.Screen
                             name="Prestamos"
-                            component={ Main }
+                            component={ PrestamosScreen }
                             options={ { title: 'Préstamos de libros' } } />
                         <Stack.Screen
                             name="NuevoPrestamo"

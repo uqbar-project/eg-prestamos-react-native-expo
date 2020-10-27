@@ -7,8 +7,8 @@ import * as Linking from 'expo-linking'
 import { FontAwesome } from '@expo/vector-icons'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParamList } from '../../App'
-class Main extends PureComponent<MainProps, MainState> {
-    constructor (props: MainProps) {
+class PrestamosScreen extends PureComponent<PrestamosScreenProps, PrestamosScreenState> {
+    constructor (props: PrestamosScreenProps) {
         super(props)
         this.state = {
             prestamos: []
@@ -78,13 +78,13 @@ class Main extends PureComponent<MainProps, MainState> {
     }
 }
 
-export default connectActionSheet(Main)
+export default connectActionSheet(PrestamosScreen)
 
-type MainProps = ActionSheetProps & {
+type PrestamosScreenProps = ActionSheetProps & {
     navigation: StackNavigationProp<RootStackParamList, 'Prestamos'>
 }
 
-type MainState = {
+type PrestamosScreenState = {
     prestamos: Prestamo[]
 }
 

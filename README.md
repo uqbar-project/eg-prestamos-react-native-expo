@@ -39,6 +39,7 @@ https://code.visualstudio.com/
 [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
 [ES7 React/Redux/GraphQL/React-Native snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)
+> A tener en cuenta: rncs, rnfs, met, cp, cs, rconst, cdm, cdup, cwun, clo
 
 [Expo Tools](https://marketplace.visualstudio.com/items?itemName=byCedric.vscode-expo)
 

@@ -38,15 +38,15 @@ Conectamos el componente que utilizara el menu para recivir las props necesarias
 ```tsx
 import { ActionSheetProps, connectActionSheet } from '@expo/react-native-action-sheet'
 
-class Main extends PureComponent<MainProps, MainState> {
+class PrestamosScreen extends PureComponent<PrestamosScreenProps, PrestamosScreenState> {
     ...
 }
 
-type MainProps = ActionSheetProps & {
-    navigation: MainScreenNavigationProp
+type PrestamosScreenProps = ActionSheetProps & {
+    navigation: StackNavigationProp<RootStackParamList, 'Prestamos'>
 }
 
-export default connectActionSheet(Main)
+export default connectActionSheet(PrestamosScreen)
 ```
 
 Y ahora si definimos el metodo que muestra el menu.

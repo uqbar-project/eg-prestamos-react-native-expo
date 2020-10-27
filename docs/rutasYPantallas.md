@@ -17,7 +17,7 @@ En este caso definiremos las rutas en nuestro `App.tsx` que es nuestro component
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { NavigationContainer, DarkTheme } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import Main from './src/screens/Main'
+import PrestamosScreen from './src/screens/PrestamosScreen'
 import NuevoPrestamo from './src/screens/NuevoPrestamo'
 
 export type RootStackParamList = {
@@ -34,7 +34,7 @@ export default function App(): ReactNode {
                 <Stack.Navigator initialRouteName="Prestamos">
                     <Stack.Screen
                         name="Prestamos"
-                        component={ Main }
+                        component={ PrestamosScreen }
                         options={ { title: 'Préstamos de libros' } } />
                     <Stack.Screen
                         name="NuevoPrestamo"
@@ -64,11 +64,11 @@ Asi definimos el tipo de prop en el componente que utilizara:
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParamList } from '../../App'
 
-export default class Main extends PureComponent<MainProps, MainState> {
+export default class PrestamosScreen extends PureComponent<PrestamosScreenProps, PrestamosScreenState> {
     ...
 }
 
-type MainProps = {
+type PrestamosScreenProps = {
     navigation: StackNavigationProp<RootStackParamList, 'Prestamos'>
 }
 ```
