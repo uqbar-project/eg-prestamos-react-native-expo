@@ -29,7 +29,7 @@ export default class Prestamo {
         return this.libro?.toString() + " - " + this.datosPrestamo
     }
 
-    prestar() {
+    prestar(): void {
         if (!this.libro) {
             throw new Error("Debe ingresar libro")
         }
@@ -40,7 +40,7 @@ export default class Prestamo {
         this.libro.prestar()
     }
 
-    devolver() {
+    devolver(): void {
         this.libro?.devolver()
         this.fechaDevolucion = new Date()
     }

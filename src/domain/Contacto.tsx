@@ -1,3 +1,4 @@
+import { Contact } from "expo-contacts"
 import { ImageSourcePropType } from "react-native"
 
 /**
@@ -11,5 +12,15 @@ export default class Contacto {
 
     toString(): string {
         return this.nombre || "Contacto sin nombre"
+    }
+
+    static fromContact(contacto: Contact): Contacto {
+        return new Contacto(
+            contacto.id,
+            contacto.phoneNumbers?.[ 0 ]?.number || '',
+            contacto.name,
+            contacto.emails?.[ 0 ]?.email || '',
+            contacto.image || null
+        )
     }
 }

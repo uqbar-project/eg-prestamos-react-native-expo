@@ -18,7 +18,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { NavigationContainer, DarkTheme } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import PrestamosScreen from './src/screens/PrestamosScreen'
-import NuevoPrestamo from './src/screens/NuevoPrestamo'
+import NuevoPrestamoScreen from './src/screens/NuevoPrestamoScreen'
 
 export type RootStackParamList = {
     Prestamos: undefined
@@ -38,7 +38,7 @@ export default function App(): ReactNode {
                         options={ { title: 'Préstamos de libros' } } />
                     <Stack.Screen
                         name="NuevoPrestamo"
-                        component={ NuevoPrestamo }
+                        component={ NuevoPrestamoScreen }
                         options={ { title: 'Nuevo préstamo' } } />
                 </Stack.Navigator>
             </NavigationContainer>

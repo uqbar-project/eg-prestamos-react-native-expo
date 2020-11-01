@@ -14,9 +14,29 @@ class PrestamosScreen extends PureComponent<PrestamosScreenProps, PrestamosScree
             prestamos: []
         }
     }
+
+    unsubscribeNavigationFocus!:() => void
+
     componentDidMount(): void {
+        const { navigation } = this.props
+        navigation.setOptions({
+            headerRight: () => (
+                <Pressable
+                    onPress={ () => navigation.navigate('NuevoPrestamo') }
+                    style={ styles.nuevoPrestamo }
+                    hitSlop={20}>
+                    <FontAwesome name={ 'plus-circle' } size={ 30 } color='white' />
+                </Pressable>
+            )
+        })
         this.cargarPrestamos()
+        this.unsubscribeNavigationFocus = navigation.addListener('focus', this.cargarPrestamos)
     }
+
+    componentWillUnmount() {
+        this.unsubscribeNavigationFocus()
+    }
+
 
     cargarPrestamos = (): void => {
         const prestamos = repoPrestamos.getPrestamosPendientes()
@@ -29,9 +49,9 @@ class PrestamosScreen extends PureComponent<PrestamosScreenProps, PrestamosScree
                 title: 'Elige una opción',
                 options: [ 'Llamar', 'Enviar email', 'Cancelar' ],
                 icons: [
-                    <FontAwesome key='phone' name='phone' size={24} />,
-                    <FontAwesome key='envelope' name='envelope' size={24} />,
-                    <FontAwesome key='close' name='close' size={24} />
+                    <FontAwesome key='phone' name='phone' size={ 24 } />,
+                    <FontAwesome key='envelope' name='envelope' size={ 24 } />,
+                    <FontAwesome key='close' name='close' size={ 24 } />
                 ],
                 cancelButtonIndex: 2,
             },
@@ -111,5 +131,8 @@ const styles = StyleSheet.create({
     },
     datos: {
         fontSize: 16
+    },
+    nuevoPrestamo: {
+        marginRight: 20
     }
 })

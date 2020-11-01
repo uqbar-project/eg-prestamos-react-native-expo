@@ -6,11 +6,14 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import PrestamosScreen from './src/screens/PrestamosScreen'
 import PrestamosService from './src/services/PrestamosService'
 import { ActionSheetProvider } from '@expo/react-native-action-sheet'
-import { Text } from 'react-native'
+import NuevoPrestamoScreen from './src/screens/NuevoPrestamoScreen'
+import ElegirContactoScreen from './src/screens/ElegirContactoScreen'
+import Contacto from './src/domain/Contacto'
 
 export type RootStackParamList = {
     Prestamos: undefined
     NuevoPrestamo: undefined
+    ElegirContacto: { seleccionarContacto: (contacto: Contacto) => void }
 }
 
 const Stack = createStackNavigator<RootStackParamList>()
@@ -30,9 +33,12 @@ export default function App(): ReactNode {
                             options={ { title: 'Préstamos de libros' } } />
                         <Stack.Screen
                             name="NuevoPrestamo"
-                            options={ { title: 'Nuevo préstamo' } } >
-                            { () => <Text>Todavia no existe</Text> }
-                        </Stack.Screen>
+                            component={ NuevoPrestamoScreen }
+                            options={ { title: 'Nuevo préstamo' } } />
+                        <Stack.Screen
+                            name="ElegirContacto"
+                            component={ ElegirContactoScreen }
+                            options={ { title: 'Elegir contacto' } } />
                     </Stack.Navigator>
                 </NavigationContainer>
             </ActionSheetProvider>
