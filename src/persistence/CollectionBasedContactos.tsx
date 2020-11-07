@@ -5,17 +5,20 @@ export default class CollectionBasedContactos implements RepoContactos {
     contactos: Contacto[] = []
     ultimoId = 0
 
+    tienePermiso(): boolean {
+        return true
+    }
+
     getContactos(): Contacto[] {
         return this.contactos
     }
 
-    getContacto(contactoOrigen: Contacto): Contacto | undefined {
-        return this.contactos.find(contacto => {
-            if (contactoOrigen.numero && contacto.numero === contactoOrigen.numero) return true
-            if (contactoOrigen.email && contacto.email === contactoOrigen.email) return true
-            if (contactoOrigen.nombre && contacto.nombre === contactoOrigen.nombre) return true
-            return false
-        })
+    getContacto(contactoOrigen: Partial<Contacto>): Contacto | undefined {
+        return this.contactos.find(contacto => 
+            (contactoOrigen.numero && contacto.numero === contactoOrigen.numero) ||
+            (contactoOrigen.email && contacto.email === contactoOrigen.email) ||
+            (contactoOrigen.nombre && contacto.nombre === contactoOrigen.nombre)
+        )
     }
 
     addContacto(contacto: Contacto): void {

@@ -5,19 +5,20 @@ import { repoContactos, repoLibros, repoPrestamos } from "./PrestamosConfig"
 
 class PrestamosService {
 
-    init() {
+    async init() {
+        if (!await repoContactos.tienePermiso()) return
         /**
          * inicializamos la información de la aplicación
          */
-        repoContactos.addContactoSiNoExiste(
+        await repoContactos.addContactoSiNoExiste(
             new Contacto("1", "46421111", "Nicolas Viotti", "nicolas@gmail.com", require('../../assets/viotti.png')))
-        repoContactos.addContactoSiNoExiste(
+        await repoContactos.addContactoSiNoExiste(
             new Contacto("2", "45382222", "Alejandro Dini", "alejandro@yahoo.com.ar", require('../../assets/dini.jpeg')))
-        repoContactos.addContactoSiNoExiste(
+        await repoContactos.addContactoSiNoExiste(
             new Contacto("3", "47063333", "Mauro Casciati", "mauro@gmail.com", require('../../assets/casciati.jpg')))
-        repoContactos.addContactoSiNoExiste(
+        await repoContactos.addContactoSiNoExiste(
             new Contacto("4", "46054444", "Fernando Dodino", "fernando@hotmail.com", require('../../assets/dodino.jpg')))
-        repoContactos.addContactoSiNoExiste(
+        await repoContactos.addContactoSiNoExiste(
             new Contacto("5", "42045555", "Rodrigo Grisolía", "rodrigo@hotmail.com", require('../../assets/grisolia.jpg')))
 
         let elAleph = new Libro(1, "El Aleph", "J.L. Borges")
@@ -41,18 +42,27 @@ class PrestamosService {
         repoLibros.addLibroSiNoExiste(new Libro(9, "Octaedro", "J. Cortázar"))
         repoLibros.addLibroSiNoExiste(new Libro(10, "Ficciones", "J.L. Borges"))
 
-        const casciati = repoContactos.getContacto(new Contacto("", "47063333", "", "", null))
-        const dini = repoContactos.getContacto(new Contacto("", "45382222", "", "", null))
-        const viotti = repoContactos.getContacto(new Contacto("", "", "Nicolas Viotti", "", null))
+        const casciati = await repoContactos.getContacto({numero: "47063333"})
+        const dini = await repoContactos.getContacto({numero: "45382222"})
+        const viotti = await repoContactos.getContacto({nombre: "Nicolas Viotti"})
 
         if (!repoPrestamos.getPrestamosPendientes().length) {
             console.log("Librex", "Creando préstamos")
-            if (casciati)
-                repoPrestamos.addPrestamo(new Prestamo(1, casciati, elAleph))
-            if (dini)
-                repoPrestamos.addPrestamo(new Prestamo(2, dini, laNovelaDePeron))
-            if (viotti)
-                repoPrestamos.addPrestamo(new Prestamo(3, viotti, cartasMarcadas))
+            if (casciati) {
+                const prestamo = new Prestamo(1, casciati, elAleph)
+                prestamo.prestar()
+                repoPrestamos.addPrestamo(prestamo)
+            }
+            if (dini) {
+                const prestamo = new Prestamo(2, dini, laNovelaDePeron)
+                prestamo.prestar()
+                repoPrestamos.addPrestamo(prestamo)
+            }
+            if (viotti) {
+                const prestamo = new Prestamo(3, viotti, cartasMarcadas)
+                prestamo.prestar()
+                repoPrestamos.addPrestamo(prestamo)
+            }
         }
     }
 }

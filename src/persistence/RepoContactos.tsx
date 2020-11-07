@@ -1,9 +1,10 @@
 import Contacto from "../domain/Contacto"
 
 export default interface RepoContactos {
-    getContactos(): Contacto[]
-    addContactoSiNoExiste(contacto: Contacto): void
-    addContacto(contacto: Contacto): void
-    getContacto(contactoOrigen: Contacto): Contacto | undefined
-    eliminarContactos(): void
+    tienePermiso(): boolean | Promise<boolean>
+    getContactos(): Contacto[] | Promise<Contacto[]>
+    addContactoSiNoExiste(contacto: Contacto): void | Promise<void>
+    addContacto(contacto: Contacto): void | Promise<void>
+    getContacto(contactoOrigen: Partial<Contacto>): Contacto | undefined | Promise<Contacto | undefined>
+    eliminarContactos(): void | Promise<void>
 }

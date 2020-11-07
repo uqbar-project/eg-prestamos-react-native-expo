@@ -1,6 +1,5 @@
 import { RouteProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import * as Contacts from 'expo-contacts'
 import Fuse from 'fuse.js'
 import React, { PureComponent, ReactElement, ReactNode } from 'react'
 import { StyleSheet, View } from 'react-native'
@@ -8,6 +7,7 @@ import { FlatList, TextInput } from 'react-native-gesture-handler'
 import { RootStackParamList } from '../../App'
 import ContactoItem from '../components/ContactoItem'
 import Contacto from '../domain/Contacto'
+import { repoContactos } from '../services/PrestamosConfig'
 
 export default class ElegirContactoScreen extends PureComponent<Props, State> {
     constructor (props: Props) {
@@ -20,12 +20,8 @@ export default class ElegirContactoScreen extends PureComponent<Props, State> {
     }
 
     async componentDidMount(): Promise<void> {
-        const { status } = await Contacts.requestPermissionsAsync()
-        if (status === 'granted') {
-            const { data } = await Contacts.getContactsAsync()
-            const contactos = data.map(Contacto.fromContact)
-            this.setState({ contactos })
-        }
+        const contactos = await repoContactos.getContactos()
+        this.setState({ contactos })
     }
 
     filtrarContactos = (): Contacto[] => {

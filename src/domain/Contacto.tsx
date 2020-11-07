@@ -1,5 +1,4 @@
-import { Contact } from "expo-contacts"
-import { ImageSourcePropType } from "react-native"
+import { Contact, Image } from "expo-contacts"
 
 /**
  * Representa un contacto dentro de la aplicación de préstamos de libros
@@ -8,7 +7,7 @@ import { ImageSourcePropType } from "react-native"
 
 export default class Contacto {
 
-    constructor (public id: string, public numero: string, public nombre: string, public email: string, public foto: ImageSourcePropType | null) { }
+    constructor (public id: string, public numero: string, public nombre: string, public email: string, public foto: Image | undefined) { }
 
     toString(): string {
         return this.nombre || "Contacto sin nombre"
@@ -20,7 +19,7 @@ export default class Contacto {
             contacto.phoneNumbers?.[ 0 ]?.number || '',
             contacto.name,
             contacto.emails?.[ 0 ]?.email || '',
-            contacto.image || null
+            contacto.image
         )
     }
 }
