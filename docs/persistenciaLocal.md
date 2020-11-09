@@ -1,0 +1,154 @@
+# Persistencia a un medio local
+
+Entre los recursos disponibles de los dispositivos contamos con una API que permite persistir la información localmente, gracias a un motor que soporta el modelo relacional llamado [SQLite](https://www.sqlite.org/index.html).
+
+Algunas características de este motor son:
+
+* es liviano, sólo necesita 250K de memoria para ejecutarse
+* no sólo funciona sino que además viene embebido en la VM de Android (ART)
+* es open-source
+* su distribución es gratuita
+* como dijimos antes es un motor relacional, que 
+* soporta transaccionalidad
+* permite definir PRIMARY KEYs
+* también claves subrogadas (ID autoincrementales)
+* tiene un acotado sistema de tipos, apenas TEXT (String), INTEGER (int o Long), y REAL (double)
+
+Para más detalles recomendamos la lectura de [esta página](http://www.vogella.com/tutorials/AndroidSQLite/article.html).
+
+## Instalacion
+
+Tendremos que instalar la dependencia `expo-sqlite`.
+
+```console
+expo install expo-sqlite
+```
+
+## Definición de estructuras de las tablas
+
+La aplicación corre en el dispositivo, justamente donde necesitamos generar las tablas en el caso en que no existan. Entonces nuestro primer trabajo es definir un objeto que genere la estructura de las tablas Libros y Préstamos (los contactos ya se persisten):
+
+```tsx
+const DATABASE_NAME = "librex.db"
+
+const db = SQLite.openDatabase(DATABASE_NAME)
+
+class SQLiteHelper {
+    /**
+     * Script para iniciar la base
+     */
+    onCreate(): Promise<void> {
+        return new Promise((resolve, reject) =>
+            db.transaction(tx => {
+                tx.executeSql(
+                    `CREATE TABLE IF NOT EXISTS Libros (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        titulo TEXT NOT NULL,
+                        autor TEXT NOT NULL,
+                        prestado BOOLEAN NOT NULL
+                    );`
+                )
+                tx.executeSql(
+                    `CREATE TABLE IF NOT EXISTS Prestamos (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        fechaPrestamo DATETIME NOT NULL,
+                        fechaDevolucion DATETIME,
+                        libro_id INTEGER NOT NULL,
+                        contacto_id TEXT NOT NULL
+                    );`
+                )
+            }, reject, resolve)
+        )
+    }
+}
+export default new SQLiteHelper()
+```
+
+Los métodos que definimos son:
+
+* **onCreate:** el evento que se dispara la primera vez que se crea la base de datos
+* **onUpgrade:** cuando se sube la versión de la base de datos, la estrategia (discutible) es eliminar las tablas libros y préstamos y volverlos a recrear. Tendríamos que analizar otras variantes si la información es sensible. Teniendo en cuenta que la app tiene fines didácticos no nos detenemos en este punto.
+
+## Un nuevo hogar para los libros
+
+Hasta el momento teníamos:
+
+* una interfaz RepoLibros
+* y una implementación concreta CollectionBasedLibros
+
+lo cual parecía una solución un tanto sobrediseñada. No obstante aquí vamos a generar una nueva clase Home, que va a terminar enviando mensajes a la base de datos local
+
+![image](../images/repositoriosClassDiagram.png)
+
+## Implementación del repositorio de libros
+
+* la alternativa más sencilla es definir una clase que implemente el repositorio de libros
+* otra opción es implementar un Provider que termine generando los queries de insert, update, delete y select a la base, pero eso agrega un grado más de indirección, con su correspondiente complejidad
+
+### Alta de un libro
+
+Veamos cómo se codifica el alta de un libro:
+
+```tsx
+ addLibro(libro: Libro): void {
+    db.transaction(tx => {
+        tx.executeSql(
+            'INSERT INTO Libros (titulo, autor, prestado) values (?, ?, ?);',
+            [libro.titulo, libro.autor, libro.prestado]
+        )
+    })
+    console.log("Librex", `Se creó libro ${libro}`)
+}
+```
+
+ Tenemos que mapear cada atributo del libro con su correspondiente campo en la tabla Libros. Como los atributos son pocos y además utilizan tipos primitivos, no parece haber mucho trabajo, pero nos imaginamos que al persistir el préstamo (que tiene una relación con un objeto Libro) la cosa no va a ser tan sencilla.
+
+### Búsqueda de un libro
+
+Ahora resolveremos la búsqueda de libros en la base:
+
+```tsx
+getLibros(): Libro[] {
+    db.transaction(tx => {
+        tx.executeSql('SELECT * FROM Libros', [], (_, { rows }) =>
+            console.log(rows)
+        )
+    })
+    console.log("Librex", "getLibros")
+    return []
+}
+```
+
+La query hace una búsqueda _by example_ pasando valores para cada uno de los campos.
+
+### Modificaciones en la configuración
+
+Modificamos la configuracion de los repositorios para la aplicación
+
+```tsx
+export const repoLibros: RepoLibros = new SQLiteBasedLibros()
+```
+
+La clase PrestamosService no cambia nada, porque la variable repoLibros toma el tipo RepoLibros genérico:
+
+```tsx
+// Cuando necesitemos generar una lista nueva de libros
+// repoLibros.eliminarLibros()
+elAleph = await repoLibros.addLibroSiNoExiste(elAleph)
+laNovelaDePeron = await repoLibros.addLibroSiNoExiste(laNovelaDePeron)
+cartasMarcadas = await repoLibros.addLibroSiNoExiste(cartasMarcadas)
+```
+
+<!-- ## Diagrama general de las clases
+
+![image](../images/repoLibrosFinal.png) -->
+
+## Repositorios polimórficos
+
+Para que el lector compruebe que los repositorios son efectivamente polimórficos, se puede volver atrás la configuración del home de libros:
+
+```tsx
+export const repoLibros: RepoLibros = new CollectionBasedLibros()
+```
+
+Y vemos que el comportamiento para actualizar los libros se mantienen, funcionando los homes en forma polimórfica para las actividades y fragments. Dejamos para que el lector investigue en el ejemplo cómo se resuelve la persistencia de los préstamos.

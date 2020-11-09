@@ -4,7 +4,7 @@
 
 export default class Libro {
 
-    isPrestado = false
+    prestado = false
 
     constructor(public id: number, public titulo: string, public autor: string) {}
 
@@ -12,19 +12,19 @@ export default class Libro {
         return `${this.titulo} (${this.autor})`
     }
 
-    prestar() {
-        this.isPrestado = true
+    prestar(): void {
+        this.prestado = true
     }
 
-    devolver() {
-        this.isPrestado = false
+    devolver(): void {
+        this.prestado = false
     }
 
     estaPrestado(): boolean {
-        return this.isPrestado
+        return this.prestado
     }
 
     estaDisponible(): boolean {
-        return !this.isPrestado
+        return !this.prestado
     }
 }

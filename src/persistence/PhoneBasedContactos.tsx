@@ -21,7 +21,7 @@ export default class PhoneBasedContactos implements RepoContactos {
 
     async addContacto(contacto: Contacto): Promise<void> {
         /* Si corro desde expo no tengo permisos para agregar contactos */
-        if (Constants.appOwnership === Constants.AppOwnership.Standalone || Platform.OS !== 'android') {
+        if (Constants.appOwnership === 'standalone' || Platform.OS !== 'android') {
             const contact: Contacts.Contact = {
                 id: '',
                 contactType: Contacts.ContactTypes.Person,
@@ -45,6 +45,7 @@ export default class PhoneBasedContactos implements RepoContactos {
     async getContacto(contactoOrigen: Partial<Contacto>): Promise<Contacto | undefined> {
         const contactos = await this.getContactos()
         return contactos.find(contacto => 
+            (contactoOrigen.id && contacto.id === contactoOrigen.id) ||
             (contactoOrigen.numero && contacto.numero === contactoOrigen.numero) ||
             (contactoOrigen.email && contacto.email === contactoOrigen.email) ||
             (contactoOrigen.nombre && contacto.nombre === contactoOrigen.nombre)

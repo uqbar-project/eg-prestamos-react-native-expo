@@ -142,8 +142,7 @@ Nuestro dominio es bastante sencillo:
 * [Contactar un deudor](docs/contactarDeudor.md)
 * [Nuevo préstamo](docs/nuevoPrestamo.md)
 * [Interacción con API de Contactos](docs/apiContactos.md)
-<!-- * [Persistencia a un medio local con SQLite](docs/persistenciaLocal.md) -->
-
+* [Persistencia a un medio local con SQLite](docs/persistenciaLocal.md)
 
 
 ---

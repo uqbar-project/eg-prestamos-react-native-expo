@@ -38,8 +38,8 @@ Definimos una pantalla donde
 En el `componentDidMount` de la pantalla obtenemos la lista de libros pendientes:
 
 ```tsx
-componentDidMount(): void {
-    const libros = repoLibros.librosPrestables()
+async componentDidMount(): Promise<void> {
+    const libros = await repoLibros.librosPrestables()
     this.setState({ libros })
 }
 ```

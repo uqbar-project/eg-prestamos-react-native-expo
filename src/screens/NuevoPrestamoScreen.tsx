@@ -22,8 +22,9 @@ export default class NuevoPrestamoScreen extends PureComponent<Props, State> {
         }
     }
 
-    componentDidMount(): void {
-        const libros = repoLibros.librosPrestables()
+    async componentDidMount(): Promise<void> {
+        const libros = await repoLibros.librosPrestables()
+        
         this.setState({ libros })
     }
 
@@ -55,13 +56,14 @@ export default class NuevoPrestamoScreen extends PureComponent<Props, State> {
         navigation.navigate('ElegirContacto', { seleccionarContacto: this.seleccionarContacto })
     }
 
-    nuevoPrestamo = (): void => {
+    nuevoPrestamo = async (): Promise<void> => {
         const { navigation } = this.props
         const { libroSeleccionado, contactoSeleccionado } = this.state
         if (libroSeleccionado && contactoSeleccionado) {
             const nuevoPrestamo = new Prestamo(0, contactoSeleccionado, libroSeleccionado)
             nuevoPrestamo.prestar()
-            repoPrestamos.addPrestamo(nuevoPrestamo)
+            await repoPrestamos.addPrestamo(nuevoPrestamo)
+            await repoLibros.updateLibro(libroSeleccionado)
             navigation.goBack()
         }
     }

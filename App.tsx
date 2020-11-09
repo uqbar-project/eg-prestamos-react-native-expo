@@ -1,7 +1,7 @@
 import { NavigationContainer, DarkTheme } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { StatusBar } from 'expo-status-bar'
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { ReactNode, useState } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import PrestamosScreen from './src/screens/PrestamosScreen'
 import PrestamosService from './src/services/PrestamosService'
@@ -10,6 +10,9 @@ import NuevoPrestamoScreen from './src/screens/NuevoPrestamoScreen'
 import ElegirContactoScreen from './src/screens/ElegirContactoScreen'
 import Contacto from './src/domain/Contacto'
 import { AppLoading } from 'expo'
+import { LogBox } from 'react-native'
+
+LogBox.ignoreLogs(['Require cycle'])
 
 export type RootStackParamList = {
     Prestamos: undefined

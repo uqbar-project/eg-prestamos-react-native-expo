@@ -9,9 +9,9 @@ Es importante
 * ver los contactos que hay
 * saber si un contacto existe
 * crear nuevos contactos
-<!-- * eliminar los contactos -->
+* eliminar los contactos (Opcional)
 
-mmm... una interfaz típica de un home. Definimos una interfaz RepoContactos con una implementación PhoneBasedContactos.
+Definimos una interfaz RepoContactos con una implementación PhoneBasedContactos.
 
 ## Vista principal: llamando al Bootstrap
 
@@ -79,6 +79,12 @@ Cada uno de estos datos representa un registro en la entidad, incluso podemos te
 ![image](../images/contactDataType.png)
 
 ## Implementación del repositorio de contactos de Expo
+
+Antes que nada tendremos que instalar la dependencia `expo-contacts`.
+
+```console
+expo install expo-contacts
+```
 
 ### Instanciación
 

@@ -7,16 +7,14 @@
 import Libro from "../domain/Libro"
 
 export default interface RepoLibros {
-    getLibros(): Libro[]
-    librosPrestables(): Libro[]
+    getLibros(): Libro[] | Promise<Libro[]>
+    librosPrestables(): Libro[] | Promise<Libro[]>
  
-    addLibro(libro: Libro): void
-    addLibroSiNoExiste(libro: Libro): Libro
-    getLibro(libroOrigen: Libro): Libro | undefined
-    getLibroPosicion(posicion: number): Libro | undefined
-    removeLibro(libro: Libro): void
-    removeLibroPosicion(posicion: number): void
-    updateLibro(libro: Libro): void
-    eliminarLibros(): void
+    addLibro(libro: Libro): void | Promise<void>
+    addLibroSiNoExiste(libro: Libro): Libro | Promise<Libro>
+    getLibro(libroOrigen: Partial<Libro>): Libro | undefined | Promise<Libro | undefined>
+    removeLibro(libro: Libro): void | Promise<void>
+    updateLibro(libro: Libro): void | Promise<void>
+    eliminarLibros(): void | Promise<void>
 
 }

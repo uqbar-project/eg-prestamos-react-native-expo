@@ -1,7 +1,7 @@
 import React, { PureComponent, ReactElement, ReactNode } from 'react'
 import { FlatList, Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import Prestamo from '../domain/Prestamo'
-import { repoPrestamos } from '../services/PrestamosConfig'
+import { repoPrestamos, repoLibros } from '../services/PrestamosConfig'
 import { ActionSheetProps, connectActionSheet } from '@expo/react-native-action-sheet'
 import * as Linking from 'expo-linking'
 import { FontAwesome } from '@expo/vector-icons'
@@ -15,7 +15,7 @@ class PrestamosScreen extends PureComponent<PrestamosScreenProps, PrestamosScree
         }
     }
 
-    unsubscribeNavigationFocus!:() => void
+    unsubscribeNavigationFocus!: () => void
 
     componentDidMount(): void {
         const { navigation } = this.props
@@ -24,7 +24,7 @@ class PrestamosScreen extends PureComponent<PrestamosScreenProps, PrestamosScree
                 <Pressable
                     onPress={ () => navigation.navigate('NuevoPrestamo') }
                     style={ styles.nuevoPrestamo }
-                    hitSlop={20}>
+                    hitSlop={ 20 }>
                     <FontAwesome name={ 'plus-circle' } size={ 30 } color='white' />
                 </Pressable>
             )
@@ -38,28 +38,39 @@ class PrestamosScreen extends PureComponent<PrestamosScreenProps, PrestamosScree
     }
 
 
-    cargarPrestamos = (): void => {
-        const prestamos = repoPrestamos.getPrestamosPendientes()
+    cargarPrestamos = async (): Promise<void> => {
+        const prestamos = await repoPrestamos.getPrestamosPendientes()
         this.setState({ prestamos })
+    }
+
+    devolverPrestamo = async (prestamo: Prestamo): Promise<void> => {
+        prestamo.devolver()
+        await repoPrestamos.updatePrestamo(prestamo)
+        await repoLibros.updateLibro(prestamo.libro)
+        this.cargarPrestamos()
     }
 
     opcionesPrestamo = (prestamo: Prestamo): void => {
         this.props.showActionSheetWithOptions(
             {
                 title: 'Elige una opción',
-                options: [ 'Llamar', 'Enviar email', 'Cancelar' ],
+                options: [ 'Llamar', 'Enviar email', 'Devolver', 'Cancelar' ],
                 icons: [
                     <FontAwesome key='phone' name='phone' size={ 24 } />,
                     <FontAwesome key='envelope' name='envelope' size={ 24 } />,
+                    <FontAwesome key='undo' name='undo' size={ 24 } color='brown' />,
                     <FontAwesome key='close' name='close' size={ 24 } />
                 ],
-                cancelButtonIndex: 2,
+                destructiveButtonIndex: 2,
+                cancelButtonIndex: 3,
             },
             buttonIndex => {
                 if (buttonIndex === 0) {
                     Linking.openURL(`tel:${ prestamo.telefono() }`)
                 } else if (buttonIndex === 1) {
                     Linking.openURL(`mailto:${ prestamo.contactoMail() }`)
+                } else if (buttonIndex === 2) {
+                    this.devolverPrestamo(prestamo)
                 }
             },
         )

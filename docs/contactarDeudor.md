@@ -56,13 +56,15 @@ opcionesPrestamo = (prestamo: Prestamo) => {
     this.props.showActionSheetWithOptions(
         {
             title: 'Elige una opción',
-            options: [ 'Llamar', 'Enviar email', 'Cancelar' ],
+            options: [ 'Llamar', 'Enviar email', 'Devolver', 'Cancelar' ],
             icons: [
-                <FontAwesome key='phone' name='phone' size={24} />,
-                <FontAwesome key='envelope' name='envelope' size={24} />,
-                <FontAwesome key='close' name='close' size={24} />
+                <FontAwesome key='phone' name='phone' size={ 24 } />,
+                <FontAwesome key='envelope' name='envelope' size={ 24 } />,
+                <FontAwesome key='undo' name='undo' size={ 24 } color='brown' />,
+                <FontAwesome key='close' name='close' size={ 24 } />
             ],
-            cancelButtonIndex: 2,
+            destructiveButtonIndex: 2,
+            cancelButtonIndex: 3,
         },
         buttonIndex => {}
     )
@@ -104,6 +106,8 @@ this.props.showActionSheetWithOptions(
             Linking.openURL(`tel:${ prestamo.telefono() }`)
         } else if (buttonIndex === 1) {
             Linking.openURL(`mailto:${ prestamo.contactoMail() }`)
+        } else if (buttonIndex === 2) {
+            this.devolverPrestamo(prestamo)
         }
     }
 )

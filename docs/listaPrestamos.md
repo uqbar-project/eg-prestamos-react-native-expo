@@ -59,8 +59,8 @@ El juego de datos se inicializa a partir de una lista de préstamos, que creamos
 
 Para cargar la lista de prestamos se lo pediremos al repositorio.
 ```tsx
-cargarPrestamos = (): void => {
-    const prestamos = repoPrestamos.getPrestamosPendientes()
+cargarPrestamos = async (): Promise<void> => {
+    const prestamos = await repoPrestamos.getPrestamosPendientes()
     this.setState({ prestamos })
 }
 ```

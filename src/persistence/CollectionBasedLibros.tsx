@@ -15,12 +15,11 @@ export default class CollectionBasedLibros implements RepoLibros {
         return libro
     }
 
-    getLibro(libroOrigen: Libro): Libro | undefined {
-        return this.libros.find(libro => libro.titulo === libroOrigen.titulo)
-    }
-
-    getLibroPosicion(posicion: number): Libro | undefined {
-        return this.libros[ posicion ]
+    getLibro(libroOrigen: Partial<Libro>): Libro | undefined {
+        return this.libros.find(libro => 
+            (libroOrigen.id && libro.id === libroOrigen.id) ||
+            (libroOrigen.titulo && libro.titulo === libroOrigen.titulo)
+        )
     }
 
     librosPrestables(): Libro[] {
@@ -29,10 +28,6 @@ export default class CollectionBasedLibros implements RepoLibros {
 
     removeLibro(libroARemover: Libro): void {
         this.libros = this.libros.filter(libro => libro.titulo === libroARemover.titulo)
-    }
-
-    removeLibroPosicion(posicion: number): void {
-        this.libros.splice(posicion, 1)
     }
 
     updateLibro(libro: Libro): void {
