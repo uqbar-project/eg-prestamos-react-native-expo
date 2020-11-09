@@ -2,30 +2,30 @@ import React, { ReactElement } from 'react'
 import { Image, Pressable, PressableProps, StyleSheet, Text, View } from 'react-native'
 import Contacto from '../domain/Contacto'
 
-const ContactoItem = ({contacto, onPress}: Props): ReactElement => {
+const ContactoItem = ({ contacto, onPress }: Props): ReactElement => {
     return (
         <Pressable
-                style={ styles.contacto }
-                onPress={ onPress }
-                android_ripple={ { color: 'grey' } }>
-                <Image
-                    style={ styles.imgContacto }
-                    source={ contacto.foto || require('../../assets/defaultContact.png') }
-                    resizeMode='contain'
-                    resizeMethod='resize'
-                />
-                <View>
-                    <Text style={ styles.contactoNombre }>{ contacto.nombre }</Text>
-                    {!!contacto.numero && <Text style={ styles.contactoDatos }>{ contacto.numero }</Text>}
-                    {!!contacto.email && <Text style={ styles.contactoDatos }>{ contacto.email }</Text>}
-                </View>
-            </Pressable>
+            style={ styles.contacto }
+            onPress={ onPress }
+            android_ripple={ { color: 'grey' } }>
+            <Image
+                style={ styles.imgContacto }
+                source={ contacto.foto || require('../../assets/defaultContact.png') }
+                resizeMode='contain'
+                resizeMethod='resize'
+            />
+            <View style={ styles.contenedorTexto }>
+                <Text style={ styles.contactoNombre }>{ contacto.nombre }</Text>
+                { !!contacto.numero && <Text style={ styles.contactoDatos }>{ contacto.numero }</Text> }
+                { !!contacto.email && <Text style={ styles.contactoDatos }>{ contacto.email }</Text> }
+            </View>
+        </Pressable>
     )
 }
 
 type Props = {
     contacto: Contacto
-    onPress: PressableProps["onPress"]
+    onPress: PressableProps[ "onPress" ]
 }
 
 export default ContactoItem
@@ -42,6 +42,9 @@ const styles = StyleSheet.create({
         width: 50,
         borderRadius: 50,
         marginRight: 14
+    },
+    contenedorTexto: {
+        flexShrink: 1
     },
     contactoNombre: {
         fontSize: 18,

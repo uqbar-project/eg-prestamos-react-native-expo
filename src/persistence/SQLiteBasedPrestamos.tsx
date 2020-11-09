@@ -53,7 +53,7 @@ export default class SQLiteBasedPrestamos implements RepoPrestamos {
 
     async prestamoFromRow(row: { id: number, fechaPrestamo: number, fechaDevolucion: number, libro_id: number, contacto_id: string }): Promise<Prestamo> {       
         const libro = await repoLibros.getLibro({ id: row.libro_id })
-        const contacto = await repoContactos.getContacto({ id: row.contacto_id })
+        const contacto = await repoContactos.getContactoPorId(row.contacto_id)
         if (!libro) {
             throw new Error(`Libro no existe. id: ${ row.libro_id }`)
         }

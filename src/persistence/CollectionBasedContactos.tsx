@@ -21,6 +21,10 @@ export default class CollectionBasedContactos implements RepoContactos {
         )
     }
 
+    getContactoPorId(id: string): Contacto | undefined {
+        return this.contactos.find(contacto => contacto.id === id)
+    }
+
     addContacto(contacto: Contacto): void {
         contacto.id = String(this.ultimoId++)
         this.contactos.push(contacto)

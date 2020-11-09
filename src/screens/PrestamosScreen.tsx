@@ -88,7 +88,7 @@ class PrestamosScreen extends PureComponent<PrestamosScreenProps, PrestamosScree
                     resizeMode='contain'
                     resizeMethod='resize'
                 />
-                <View>
+                <View style={styles.contenedorTexto}>
                     <Text style={ styles.libro }>{ item.libro.toString() }</Text>
                     <Text style={ styles.datos }>{ item.datosPrestamo() }</Text>
                 </View>
@@ -135,6 +135,9 @@ const styles = StyleSheet.create({
         width: 50,
         borderRadius: 50,
         marginRight: 14
+    },
+    contenedorTexto: {
+        flexShrink: 1
     },
     libro: {
         fontSize: 18,

@@ -85,7 +85,7 @@ renderPrestamo = ({ item }: { item: Prestamo }): ReactElement => {
                 resizeMode='contain'
                 resizeMethod='resize'
             />
-            <View>
+            <View style={styles.contenedorTexto}>
                 <Text style={ styles.libro }>{ item.libro.toString() }</Text>
                 <Text style={ styles.datos }>{ item.datosPrestamo() }</Text>
             </View>

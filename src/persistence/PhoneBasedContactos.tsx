@@ -45,11 +45,19 @@ export default class PhoneBasedContactos implements RepoContactos {
     async getContacto(contactoOrigen: Partial<Contacto>): Promise<Contacto | undefined> {
         const contactos = await this.getContactos()
         return contactos.find(contacto => 
-            (contactoOrigen.id && contacto.id === contactoOrigen.id) ||
             (contactoOrigen.numero && contacto.numero === contactoOrigen.numero) ||
             (contactoOrigen.email && contacto.email === contactoOrigen.email) ||
             (contactoOrigen.nombre && contacto.nombre === contactoOrigen.nombre)
         )
+    }
+
+    async getContactoPorId(id: string): Promise<Contacto | undefined> {
+        if (Constants.appOwnership !== 'standalone' && Platform.OS === 'android') {
+            const contacto = this.extraContactos.find(contacto => contacto.id === id)
+            if (contacto) return contacto
+        }
+        const contact = await Contacts.getContactByIdAsync(id)
+        if (contact) return Contacto.fromContact(contact)
     }
 
     eliminarContactos(): void {
