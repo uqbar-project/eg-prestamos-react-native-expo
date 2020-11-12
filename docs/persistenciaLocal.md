@@ -11,7 +11,7 @@ Algunas características de este motor son:
 * como dijimos antes es un motor relacional, que 
 * soporta transaccionalidad
 * permite definir PRIMARY KEYs
-* también claves subrogadas (ID autoincrementales)
+* también claves subrogadas (ID auto incrementale)
 * tiene un acotado sistema de tipos, apenas TEXT (String), INTEGER (int o Long), y REAL (double)
 
 Para más detalles recomendamos la lectura de [esta página](http://www.vogella.com/tutorials/AndroidSQLite/article.html).
@@ -76,7 +76,7 @@ Hasta el momento teníamos:
 * una interfaz RepoLibros
 * y una implementación concreta CollectionBasedLibros
 
-lo cual parecía una solución un tanto sobrediseñada. No obstante aquí vamos a generar una nueva clase Home, que va a terminar enviando mensajes a la base de datos local
+lo cual parecía una solución un tanto sobre diseñada. No obstante aquí vamos a generar una nueva clase Home, que va a terminar enviando mensajes a la base de datos local
 
 ![image](../images/repositoriosClassDiagram.png)
 
@@ -123,7 +123,7 @@ La query hace una búsqueda _by example_ pasando valores para cada uno de los ca
 
 ### Modificaciones en la configuración
 
-Modificamos la configuracion de los repositorios para la aplicación
+Modificamos la configuración de los repositorios para la aplicación
 
 ```tsx
 export const repoLibros: RepoLibros = new SQLiteBasedLibros()

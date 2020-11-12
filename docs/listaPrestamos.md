@@ -23,7 +23,7 @@ https://reactnative.dev/docs/flatlist
 
 ### Layout
 
-A diferencia de React los estilos no pueden estar en un archivo de estilos css, los componentes aceptan la propiedad `style` donde se pueden escribir los estilos en linea pero es recomendado definir multiples estilos utilizando el metodo `StyleSheet.create`:
+A diferencia de React los estilos no pueden estar en un archivo de estilos css, los componentes aceptan la propiedad `style` donde se pueden escribir los estilos en linea pero es recomendado definir múltiples estilos utilizando el método `StyleSheet.create`:
 
 ```tsx
 const styles = StyleSheet.create({
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
 
 El juego de datos se inicializa a partir de una lista de préstamos, que creamos en PrestamosService y que pueden ver en caso de interés.
 
-Para cargar la lista de prestamos se lo pediremos al repositorio.
+Para cargar la lista de préstamos se lo pediremos al repositorio.
 ```tsx
 cargarPrestamos = async (): Promise<void> => {
     const prestamos = await repoPrestamos.getPrestamosPendientes()
@@ -73,7 +73,7 @@ Por cada préstamo visualicemos:
 
 ### Layout de un préstamo como fila
 
-Creamos un metodo el le pasamos al componente FlatList que define la vista de cada fila:
+Creamos un método el le pasamos al componente `FlatList` que define la vista de cada fila:
 
 ```tsx
 renderPrestamo = ({ item }: { item: Prestamo }): ReactElement => {
@@ -100,4 +100,4 @@ Para eso definimos un primer layout que será horizontal, donde ubicaremos la fo
 
 ---
 
-Aunque aqui usamos FlatList para mostrar la lista tambien podriamos usar ScrollView y manejar nosotros mismos la visualizacion. [Pueden estudiar una comparación de ambas formas de visualizar listas aquí.](https://reactnative.dev/docs/scrollview)
+Aunque aquí usamos FlatList para mostrar la lista también podríamos usar ScrollView y manejar nosotros mismos la visualización. [Pueden estudiar una comparación de ambas formas de visualizar listas aquí.](https://reactnative.dev/docs/scrollview)

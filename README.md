@@ -11,6 +11,7 @@ Algunas aclaraciones antes de empezar:
 - No evita tener que tocar código de Android o de iOS, aunque permita integrar todas las partes que se tengan de ambos sistemas en una sola aplicación, con algunas diferencias pero con una parte del código compartido y escrito en JavaScript, utilizando JSX para definir las interfaces.
 
 
+
 Lo que hace React Native es generar un doble thread: uno corriendo todo el código nativo, toda la parte que sigue ejecutando módulos nativos como la interfaz o cualquier librería que tengamos integrada ya existente con programación en Android en iOS, y otro corriendo una máquina virtual ejecutando JavaScript.
 
 El bridge de React Native es el que va a permitir la comunicación entre ambos threads. 
@@ -20,6 +21,7 @@ El bridge de React Native es el que va a permitir la comunicación entre ambos t
 ## Expo
 
 Expo es un framework con un conjunto de herramientas, librerías y servicios los cuales te permiten desarrollar apps nativas en iOS y Android escritas en JavaScript. Expo utiliza Expo SDK, el cual es una librería nativa y de JavaScript que provee acceso a la funcionalidad del dispositivo (como a la cámara, contactos, almacenamiento local, entre otros) **sin modificar código nativo**, ya que puede correr y visualizarse en cualquier dispositivo que tenga instalado la app de Expo, aún sin tener instalado Android Studio o Xcode.
+
 
 ---
 ## Instalacion de entorno recomendada
@@ -52,7 +54,7 @@ Abrir menu de opciones en emulator:
 `ctrl + m`
 
 ### Expo App para telefono
-Bajarlo en el telefono y el emulador
+Bajarlo en el teléfono y el emulador
 https://play.google.com/store/apps/details?id=host.exp.exponent
 https://apps.apple.com/es/app/expo-client/id982107779
 
@@ -71,20 +73,20 @@ cd eg-prestamos-react-native-expo
 ```
 > Este comando puede necesitar permisos de administrador o una consola interactiva
 
-Esto generara varios archivos de los cuales tenemos que tener en cuenta
+Esto genera varios archivos de los cuales tenemos que tener en cuenta
 
 **package.json**  
 Igual que react y angular podemos declarar dependencias de npm o yarn.
 
 **app.json**  
-Cualquier configuracion con respecto a expo o la app en general.
+Cualquier configuración con respecto a expo o la app en general.
 
 Empezamos poniendo
 ```json
     "name": "nombre de la app",
     "slug": "id de la app para expo",
 ```
-> Cambiar el valor de *slug* hara que expo la considere como otra app
+> Cambiar el valor de *slug* hará que expo la considere como otra app
 
 Otras configuraciones de *app.json* en https://docs.expo.io/versions/latest/config/app/
 
