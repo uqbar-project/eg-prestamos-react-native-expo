@@ -4,14 +4,15 @@
 ## React Native
 Es un framework de programación de aplicaciones nativas multiplataforma que está basado en React.
 
-Aclaraciones:
+Algunas aclaraciones antes de empezar:
 - No permite ejecutar aplicaciones que tenemos ya desarrolladas con React.
 - No es una página web generada en un webview, sino que genera una aplicación nativa con un rendimiento casi similar al nativo.
-- No convertirá el código en una aplicación nativa, transpilado a Java o ObjectiveC.
-- No evita tener que tocar código de Android o de iOS, aunque permite integrar todas las partes que se tengan de ambos sistemas en una sola aplicación, con algunas diferencias pero con una parte del código compartido y escrito en JavaScript, utilizando JSX para definir las interfaces.
+- No convierte el código una aplicación nativa, transpilado a Java o ObjectiveC.
+- No evita tener que tocar código de Android o de iOS, aunque permita integrar todas las partes que se tengan de ambos sistemas en una sola aplicación, con algunas diferencias pero con una parte del código compartido y escrito en JavaScript, utilizando JSX para definir las interfaces.
 
 
-React Native genera un doble thread, en el cual tenemos uno corriendo todo el código nativo, toda la parte que sigue ejecutando módulos nativos como la interfaz o cualquier librería que tengamos integrada ya existente con programación en Android en iOS, y por otro tenemos corriendo una máquina virtual ejecutando JavaScript.
+
+Lo que hace React Native es generar un doble thread: uno corriendo todo el código nativo, toda la parte que sigue ejecutando módulos nativos como la interfaz o cualquier librería que tengamos integrada ya existente con programación en Android en iOS, y otro corriendo una máquina virtual ejecutando JavaScript.
 
 El bridge de React Native es el que va a permitir la comunicación entre ambos threads. 
 
@@ -19,64 +20,51 @@ El bridge de React Native es el que va a permitir la comunicación entre ambos t
 
 ## Expo
 
-Expo es un framework con un conjunto de herramientas, librerías y servicios los cuales te permiten desarrollar apps nativas en iOS y Android escritas en JavaScript. Expo utiliza Expo SDK, el cual es una librería nativa y de JavaScript que provee acceso a la funcionalidad del dispositivo como a la cámara, contactos, almacenamiento local, entre otros) **sin modificar código nativo**, ya que puede correr y visualizarse en cualquier dispositivo que tenga instalado la app de Expo, aún sin tener instalado Android Studio o Xcode.
+Expo es un framework con un conjunto de herramientas, librerías y servicios los cuales te permiten desarrollar apps nativas en iOS y Android escritas en JavaScript. Expo utiliza Expo SDK, el cual es una librería nativa y de JavaScript que provee acceso a la funcionalidad del dispositivo (como a la cámara, contactos, almacenamiento local, entre otros) **sin modificar código nativo**, ya que puede correr y visualizarse en cualquier dispositivo que tenga instalado la app de Expo, aún sin tener instalado Android Studio o Xcode.
 
-## Instalación de entorno recomendada
-
-### NodeJS
-https://nodejs.org/en/
 
 ---
-### Yarn
-https://yarnpkg.com/en/docs/install#windows-stable
+## Instalacion de entorno recomendada
 
----
-### Visual Studio Code 
-https://code.visualstudio.com/
+### Herramientas generales
+ - NodeJS: https://nodejs.org/en/
+ - Yarn: https://yarnpkg.com/en/docs/install#windows-stable
+ - Visual Studio Code: https://code.visualstudio.com/
+ - Plugins para Visual Studio Code:
+   - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+   - [ES7 React/Redux/GraphQL/React-Native snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets) (A tener en cuenta: rncs, rnfs, met, cp, cs, rconst, cdm, cdup, cwun, clo)
+   - [Expo Tools](https://marketplace.visualstudio.com/items?itemName=byCedric.vscode-expo)
 
-### Plugins para Visual Studio Code
-
-[ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-
-[ES7 React/Redux/GraphQL/React-Native snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)
-> A tener en cuenta: rncs, rnfs, met, cp, cs, rconst, cdm, cdup, cwun, clo
-
-[Expo Tools](https://marketplace.visualstudio.com/items?itemName=byCedric.vscode-expo)
-
----
-### Expo Client  
+### Instalación de Expo Client  
+Con npm: 
 ```console
 npm install -g expo-cli
 ```
-opcionalmente
+Con yarn:
 ```console
 yarn add global expo-cli
 ```
 > Hay que agregar la carpeta de donde npm o yarn instala los paquetes globales al PATH en caso de que no este, en el caso de windows por defecto es C:\Users\\**USERNAME**\AppData\Roaming\npm  
 
----
 ### Emulador (opcional)
 Recomiendo bajarse el Android studio para usar el AVD manager.  
 https://developer.android.com/studio
 
-
 Abrir menu de opciones en emulator:  
 `ctrl + m`
 
----
 ### Expo App para telefono
 Bajarlo en el teléfono y el emulador
 https://play.google.com/store/apps/details?id=host.exp.exponent
 https://apps.apple.com/es/app/expo-client/id982107779
 
----
 ### React devtools (opcional)
 ```console
 npm i -g react-devtools@^3
 ```
 
-
-## Primeros pasos
+---
+## Primeros pasos con Expo
 
 ### Nueva aplicación
 ```console
@@ -109,17 +97,18 @@ Para correrlo usamos
 expo start
 ```
 
-### Explicación
+---
+## Enunciado del ejemplo:
 
-El objetivo de esta aplicación es:
+Con la aplicación de prestamo de libros vamos a poder:
 
-* acceder a la lista de contactos del dispositivo, tanto para recuperarlos como para agregar
-* tiene una vista principal list para mostrar los préstamos,
-* y un menú que se activa con un click largo sobre un elemento, que permite
-  * devolver el libro
-  * o contactar a quien nos debe el libro por mail o llamándolo
-* también podemos crear un préstamo, para lo cual hay un formulario con validaciones
-* y por último, la aplicación se puede configurar para hacerse persistente en la base interna del dispositivo (SQLite)
+* acceder a la lista de prestamos en la pantalla principal,
+* acceder a la lista de contactos del dispositivo (tanto para recuperarlos como para agregar),
+* hacer un click largo sobre un elemento que permita
+  * devolver el libro, o
+  * contactar a quien nos debe el libro por mail o llamándolo,
+* crear un nuevo préstamo llenando un formulario (con validaciones),
+* y por último, la aplicación se puede configurar para que tenga persistencia en la base interna del dispositivo (con SQLite)
 
 ### El modelo
 
@@ -127,15 +116,15 @@ Nuestro dominio es bastante sencillo:
 
 ![image](docs/images/modelo.png)
 
-#### Decisiones a tomar
+### Decisiones a tomar
 
 * los contactos ¿salen del dispositivo o tendremos una entidad aparte? Lo más razonable es que el objeto Contacto esté asociado a los que cargamos en nuestro dispositivo, pero esta es una decisión que hay que consensuar con el usuario.
 * ¿dónde guardamos los préstamos? ¿necesitaremos identificadores unívocos?
-* ¿cómo navegar la aplicación?
+* ¿cómo se va a poder navegar la aplicación?
 
 ---
 
-## Explicaciones adicionales
+## Explicaciones del desarrollo en React Native:
 
 * [Pantallas, stacks y rutas](docs/rutasYPantallas.md)
 * [Pantalla principal: lista de préstamos](docs/listaPrestamos.md)
@@ -144,5 +133,4 @@ Nuestro dominio es bastante sencillo:
 * [Interacción con API de Contactos](docs/apiContactos.md)
 * [Persistencia a un medio local con SQLite](docs/persistenciaLocal.md)
 
-
-
+---
