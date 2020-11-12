@@ -22,11 +22,11 @@ Toda esta información queda en memoria mientras dura la aplicación o se persis
 
 Definimos una pantalla donde
 
-* utilizamos un `Pressable` como contenedor en vez de un `View` para poder esconder el teclado al precionar una parte de la pantalla vacia
+* utilizamos un `Pressable` como contenedor en vez de un `View` para poder esconder el teclado al presionar una parte de la pantalla vacia
 * un `TextInput` y un `FlatList` para mostrarle al usuario las opciones de libros que puede seleccionar
-* para mostrar los datos del contacto en una sola línea, cramos un componente `ContactoItem`. En este componente esta copuesto de
+* para mostrar los datos del contacto en una sola línea, creamos un componente `ContactoItem`. En este componente está compuesto de
     * un `Image` que muestre la foto del contacto
-    * varios `Text` que muestran la información del contacto: esto puede ser sólo nombre o podría incluir telefono y email
+    * varios `Text` que muestran la información del contacto: esto puede ser sólo nombre o podría incluir teléfono y email
     * un `View` para separar la imagen y el texto en dos columnas
     * un `Pressable` que dispare la app búsqueda de contactos del dispositivo
     * si no tenemos un contacto seleccionado, utilizamos uno con una imagen y texto por defecto
@@ -61,7 +61,7 @@ filtrarLibros = (): Libro[] => {
 }
 ```
 
-Al seleccionar un elemento de la lista se borrara la busqueda y se mostrará el titulo del libro seleccionado en el input, en el caso de que no se seleccione ninguno, se borrara el input y la variable `libroSeleccionado` quedará en `undefined`.
+Al seleccionar un elemento de la lista se borrara la búsqueda y se mostrará el título del libro seleccionado en el input, en el caso de que no se seleccione ninguno, se borrara el input y la variable `libroSeleccionado` quedará en `undefined`.
 
 ### Búsqueda de contactos
 
@@ -87,7 +87,7 @@ seleccionarContacto = (contacto: Contacto): void => this.setState({ contactoSele
 Al prestar hay que instanciar un préstamo con 
 
 * el libro seleccionado, que lo tenemos en una variable de estado `libroSeleccionado` (se carga en el método `onPress` del `Pressable` en `renderLibro`)
-* el contacto seleccionado, que lo tenemos también en una variable de estado `contactoSeleccionado` (se carga en el método seleccionarContacto)
+* el contacto seleccionado, que lo tenemos también en una variable de estado `contactoSeleccionado` (se carga en el método `seleccionarContacto`)
 
 luego delegar al repositorio y cerrar la pantalla.
 <!--  Si hay errores de validación, se muestra un Toast al usuario y se corta el flujo (la actividad no se cierra ni se agrega el préstamo). Si hay un error diferente (de programación), el mensaje es diferente -->

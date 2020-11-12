@@ -1,10 +1,10 @@
 # Pantallas, stacks y rutas
 
-En aplicaciones mobile es esencial tener multiples pantallas ya que no contamos con el espacio necesario de pantalla.
+En aplicaciones mobile es esencial tener múltiples pantallas ya que no solemos contar con el espacio necesario.
 
-Se utiliza el termino "stack" para indicar que una pantalla es posicionada arriba de otra, utilizaremos esta tecnica cuando necesitemos abrir una pantalla secundaria.
+Se utiliza el término *"stack"* para indicar que una pantalla es posicionada arriba de otra, utilizaremos esta técnica cuando necesitemos abrir una pantalla secundaria.
 
-En este caso usaremos una libreria dedicada a manejar las pantallas y el ruteo entre estas y para esto necesitamos las siguientes dependencias:
+En este caso usaremos una librería dedicada a manejar las pantallas y el ruteo entre estas y para esto necesitamos las siguientes dependencias:
 
 ```console
 expo install @react-navigation/native react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view @react-navigation/stack
@@ -48,16 +48,16 @@ export default function App(): ReactNode {
 }
 ```
 
-El componente `SafeAreaProvider` es una vista desde la cual enviara a sus consumidores descendientes los valores necesarios para no superponerce con cualquiera de los elementos del sistema (barra de estado, muescas, etc.). [Mas información sobre SafeAreaProvider](https://reactnavigation.org/docs/handling-safe-area/).
+El componente `SafeAreaProvider` es una vista desde la cual enviará a sus consumidores descendientes los valores necesarios para no superponerse con cualquiera de los elementos del sistema (barra de estado, muescas, etc.). [Mas información sobre SafeAreaProvider](https://reactnavigation.org/docs/handling-safe-area/).
 
 El componente `NavigationContainer` es el responsable de manejar el estado de la app y conectar el componente de mayor nivel con las pantallas de la aplicación.
 
-El metodo `createStackNavigator` provee una forma de transicionar entre pantallas, cada nueva pantalla a la que se navega es posicionada arriba en el "stack".
+El método `createStackNavigator` provee una forma de transicionar entre pantallas, cada nueva pantalla a la que se navega es posicionada arriba en el "stack".
 
 Cada pantalla se definira dentro del componente `Stack.Navigator` como un componente `Stack.Screen` en la cual definiremos el nombre de la ruta, que componente utilizara la pantalla y otras opciones especificas de la pantalla. [Mas información sobre StackNavigator](https://reactnavigation.org/docs/stack-navigator/).
 
 
-Todas las pantallas tendran la prop `navigation` que podran utilizar para navegar de una pantalla a otra.
+Todas las pantallas tendrán la prop `navigation` que podrán utilizar para navegar de una pantalla a otra.
 
 Asi definimos el tipo de prop en el componente que utilizara:
 ```tsx

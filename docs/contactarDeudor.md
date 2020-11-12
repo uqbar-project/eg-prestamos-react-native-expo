@@ -9,7 +9,7 @@ La aplicación no solo nos muestra la lista de préstamos, podemos aprovechar la
 
 Cuando un usuario haga un "click largo" sobre un préstamo, activaremos el menú contextual. Definiremos en principio la vista de ese menú, que son las opciones disponibles:
 
-En este caso usaremos una dependencia que nos da una implementacion de `ActionSheet` para Android ademas de la nativa que ya existe para IOS.
+En este caso usaremos una dependencia que nos da una implementacion de `ActionSheet` para Android además de la nativa que ya existe para IOS.
 
 ```console
 expo install @expo/react-native-action-sheet
@@ -49,7 +49,7 @@ type PrestamosScreenProps = ActionSheetProps & {
 export default connectActionSheet(PrestamosScreen)
 ```
 
-Y ahora si definimos el metodo que muestra el menu.
+Y ahora si definimos el método que muestra el menú.
 
 ```tsx
 opcionesPrestamo = (prestamo: Prestamo) => {
@@ -96,7 +96,7 @@ Lo vemos en acción:
 
 ## Opción seleccionada
 
-Ahora necesitamos que cuando el usuario haga click en alguna opción se dispare la acción correspondiente. Esto ocurre en el metodo que pasamos como segundo parametro a `showActionSheetWithOptions`:
+Ahora necesitamos que cuando el usuario haga click en alguna opción se dispare la acción correspondiente. Esto ocurre en el método que pasamos como segundo parámetro a `showActionSheetWithOptions`:
 
 ```tsx
 this.props.showActionSheetWithOptions(

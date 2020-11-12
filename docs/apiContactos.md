@@ -181,7 +181,7 @@ static fromContact(contacto: Contact): Contacto {
 
 ### Configuración de permisos
 
-Para poder acceder a los contactos es necesario preguntarle al usuario si nos da permiso, para eso esta el metodo `tienePermiso` que llamamos en el `init` del `PrestamosService`:
+Para poder acceder a los contactos es necesario preguntarle al usuario si nos da permiso, para eso está el método `tienePermiso` que llamamos en el `init` del `PrestamosService`:
 
 ```tsx
 async tienePermiso(): Promise<boolean> {
