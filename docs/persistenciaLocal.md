@@ -18,7 +18,7 @@ Para más detalles recomendamos la lectura de [esta página](http://www.vogella.
 
 ## Instalacion
 
-Tendremos que instalar la dependencia `expo-sqlite`.
+Tendremos que instalar la dependencia [expo-sqlite](https://docs.expo.io/versions/latest/sdk/sqlite/).
 
 ```console
 expo install expo-sqlite

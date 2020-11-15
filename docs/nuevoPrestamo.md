@@ -37,8 +37,6 @@ async componentDidMount(): Promise<void> {
 }
 ```
 
-<!-- Como el toString() de Libro concatena título y autor la estrategia que adoptamos es crear un mapa cuya clave será el toString de libro y cuyo valor es el objeto Libro (una estrategia un tanto heterodoxa porque no manejamos objetos seleccionados como cuando disponemos de binding). -->
-
 Podemos capturar el evento `onChangeText` del `TextInput` para guardar el valor ingresado y hacer la búsqueda en la lista de libros en base a este:
 
 ```tsx
@@ -53,6 +51,8 @@ filtrarLibros = (): Libro[] => {
     return fuse.search(busqueda).map(e => e.item)
 }
 ```
+
+> Para el ejemplo uso la libreria [fuse.js](https://fusejs.io/) que me permite hacer una busqueda difusa (coincidencia aproximada de textos).
 
 Al seleccionar un elemento de la lista se borrara la búsqueda y se mostrará el título del libro seleccionado en el input, en el caso de que no se seleccione ninguno, se borrara el input y la variable `libroSeleccionado` quedará en `undefined`.
 
@@ -82,7 +82,6 @@ Al prestar hay que instanciar un préstamo con
 * el contacto seleccionado, que lo tenemos también en una variable de estado `contactoSeleccionado` (se carga en el método `seleccionarContacto`)
 
 luego delegar al repositorio y cerrar la pantalla.
-<!--  Si hay errores de validación, se muestra un Toast al usuario y se corta el flujo (la actividad no se cierra ni se agrega el préstamo). Si hay un error diferente (de programación), el mensaje es diferente -->
 
 ```tsx
 nuevoPrestamo = (): void => {

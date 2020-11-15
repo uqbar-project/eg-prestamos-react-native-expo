@@ -76,7 +76,7 @@ A su vez cada *raw contact* tiene n datos, donde el formato varía en base a la 
 
 ## Implementación del repositorio de contactos de Expo
 
-Antes que nada tendremos que instalar la dependencia `expo-contacts`.
+Antes que nada tendremos que instalar la dependencia [expo-contacts](https://docs.expo.io/versions/latest/sdk/contacts/).
 
 ```console
 expo install expo-contacts
