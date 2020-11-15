@@ -76,9 +76,9 @@ Hasta el momento teníamos:
 * una interfaz RepoLibros
 * y una implementación concreta CollectionBasedLibros
 
-lo cual parecía una solución un tanto sobre diseñada. No obstante aquí vamos a generar una nueva clase Home, que va a terminar enviando mensajes a la base de datos local
+lo cual parecía una solución un tanto sobre diseñada. No obstante aquí vamos a generar una nueva clase, que va a terminar enviando mensajes a la base de datos local
 
-![image](../images/repositoriosClassDiagram.png)
+![repositoriosClassDiagram](./images/repositoriosClassDiagram.png)
 
 ## Implementación del repositorio de libros
 
@@ -97,29 +97,63 @@ Veamos cómo se codifica el alta de un libro:
             [libro.titulo, libro.autor, libro.prestado]
         )
     })
-    console.log("Librex", `Se creó libro ${libro}`)
+    console.log(`Se creó libro ${libro}`)
 }
 ```
 
  Tenemos que mapear cada atributo del libro con su correspondiente campo en la tabla Libros. Como los atributos son pocos y además utilizan tipos primitivos, no parece haber mucho trabajo, pero nos imaginamos que al persistir el préstamo (que tiene una relación con un objeto Libro) la cosa no va a ser tan sencilla.
+
+### Manejando el asincronismo
+
+Para poder simplificar el manejo de callbacks que nos provee la librería, voy a crear un método en `SQLiteHelper` para convertir la llamada en una promesa y así poder manejarme con `async` y `await`.
+
+```tsx
+executeSql(sqlStatement: string, args?: any[]): Promise<SQLite.SQLResultSet> {
+    return new Promise((resolve, reject) =>
+        db.transaction(tx => {
+            tx.executeSql(
+                sqlStatement,
+                args,
+                (_, result) => resolve(result),
+                (_, error) => {
+                    reject(error)
+                    return false
+                }
+            )
+        }, reject)
+    )
+}
+```
 
 ### Búsqueda de un libro
 
 Ahora resolveremos la búsqueda de libros en la base:
 
 ```tsx
-getLibros(): Libro[] {
-    db.transaction(tx => {
-        tx.executeSql('SELECT * FROM Libros', [], (_, { rows }) =>
-            console.log(rows)
-        )
-    })
-    console.log("Librex", "getLibros")
-    return []
+async getLibros(): Promise<Libro[]> {
+    const { rows } = await SQLiteHelper.executeSql(
+        'SELECT * FROM Libros;'
+    )
+    const result = Array.from({length: rows.length}, (_, i) => rows.item(i)).map(this.libroFromRow)
+    console.log("getLibros", result)
+    return result
 }
 ```
 
-La query hace una búsqueda _by example_ pasando valores para cada uno de los campos.
+```tsx
+ async getLibro(libroOrigen: Partial<Libro>): Promise<Libro | undefined> {
+    const { rows } = await SQLiteHelper.executeSql(
+        'SELECT * FROM Libros WHERE id = ? OR titulo = ? LIMIT 1;',
+        [ libroOrigen.id, libroOrigen.titulo || '' ]
+    )
+    let result
+    if (rows.length) result = this.libroFromRow(rows.item(0))
+    console.log('getLibro', result)
+    return result
+}
+```
+
+La query hace una búsqueda _by example_ pasando valores para los campos.
 
 ### Modificaciones en la configuración
 
@@ -132,16 +166,10 @@ export const repoLibros: RepoLibros = new SQLiteBasedLibros()
 La clase PrestamosService no cambia nada, porque la variable repoLibros toma el tipo RepoLibros genérico:
 
 ```tsx
-// Cuando necesitemos generar una lista nueva de libros
-// repoLibros.eliminarLibros()
 elAleph = await repoLibros.addLibroSiNoExiste(elAleph)
 laNovelaDePeron = await repoLibros.addLibroSiNoExiste(laNovelaDePeron)
 cartasMarcadas = await repoLibros.addLibroSiNoExiste(cartasMarcadas)
 ```
-
-<!-- ## Diagrama general de las clases
-
-![image](../images/repoLibrosFinal.png) -->
 
 ## Repositorios polimórficos
 

@@ -11,13 +11,6 @@ Definir la pantalla que permita cargar un nuevo préstamo.
 * la fecha se asume la del día de hoy
 * agregar el préstamo en la lista y cerrar la pantalla
 
-<!-- ## Persistencia
-
-Toda esta información queda en memoria mientras dura la aplicación o se persiste en un SQL Lite, teniendo en cuenta que 
-
-1. la relación many-to-one entre las entidades Préstamo y Libro. En la tabla Préstamo se almacena el identificador unívoco de Libro (LIBRO_ID según vimos). 
-2. la relación many-to-one contra los contactos, que se guardan en el dispositivo. La referencia al contacto puede ser el ID (que podría re-mapearse al RAW_CONTACT_ID), el teléfono (PHONE), o bien el nombre del contacto. En el ejemplo elegimos la segunda opción para no tener que hacer tantos cambios en la aplicación.  -->
-
 ## Pantalla
 
 Definimos una pantalla donde
@@ -74,14 +67,13 @@ buscarContacto = (): void => {
 }
 ```
 
+> Al ejecutar este método vemos que React Navigation nos muestra un warning porque le estamos pasando una función y esta no es serializable. Se recomienda usar un contexto o redux. 
+
 Una vez que seleccionamos un contacto, hay que capturar el evento como callback:
 
 ```tsx
 seleccionarContacto = (contacto: Contacto): void => this.setState({ contactoSeleccionado: contacto })
 ```
-
-<!-- En el método seleccionarContacto recibimos un cursor, con el que generamos contactoBuscar, el objeto Contacto que nos sirve de prototipo para hacer la búsqueda al home de Contactos que ya diseñamos. La ventaja es que el home nos devuelve un Contacto ya construido, solamente tenemos que encargarnos del binding de la imagen con la foto y el textview con los datos del contacto. -->
-
 ### Prestar
 
 Al prestar hay que instanciar un préstamo con 
@@ -120,13 +112,8 @@ componentWillUnmount() {
 }
 ```
 
-<!-- ## Diagrama de clases de la solución
-
-![image](../images/nuevoPrestamoClassDiagram.png)
- -->
 ## Ejecutando la aplicación
 
 Vemos cómo queda el resultado final.
 
-![image](../images/nuevoPrestamoApp.png)
-![image](../images/nuevoPrestamoApp2.png)
+![nuevoPrestamo](./images/nuevoPrestamo.gif)

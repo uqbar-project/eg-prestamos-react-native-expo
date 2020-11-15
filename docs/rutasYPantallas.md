@@ -4,6 +4,8 @@ En aplicaciones mobile es esencial tener múltiples pantallas ya que no solemos 
 
 Se utiliza el término *"stack"* para indicar que una pantalla es posicionada arriba de otra, utilizaremos esta técnica cuando necesitemos abrir una pantalla secundaria.
 
+![stacks](./images/stacks.gif)
+
 En este caso usaremos una librería dedicada a manejar las pantallas y el ruteo entre estas y para esto necesitamos las siguientes dependencias:
 
 ```console

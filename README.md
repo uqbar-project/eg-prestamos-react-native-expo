@@ -1,5 +1,8 @@
 
 # Préstamos de libros
+Desarrollar una aplicación que permita hacer un seguimiento de los libros que prestamos a nuestros contactos.
+
+![demo](./docs/images/demo.gif)
 
 ## React Native
 Es un framework de programación de aplicaciones nativas multiplataforma que está basado en React.

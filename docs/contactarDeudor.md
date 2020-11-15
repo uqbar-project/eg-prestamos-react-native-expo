@@ -92,7 +92,7 @@ renderPrestamo = ({ item }: { item: Prestamo }): ReactElement => {
 
 Lo vemos en acción:
 
-![image](../images/menuActivado.png)
+![menuActivado](./images/menuActivado.gif)
 
 ## Opción seleccionada
 
@@ -105,7 +105,11 @@ this.props.showActionSheetWithOptions(
         if (buttonIndex === 0) {
             Linking.openURL(`tel:${ prestamo.telefono() }`)
         } else if (buttonIndex === 1) {
-            Linking.openURL(`mailto:${ prestamo.contactoMail() }`)
+            Linking.openURL(`mailto:${
+                    prestamo.contactoMail()
+                }?subject=Libro ${
+                    prestamo.libro.titulo 
+                }&body=Por favor te pido que me devuelvas el libro`)
         } else if (buttonIndex === 2) {
             this.devolverPrestamo(prestamo)
         }
@@ -123,16 +127,20 @@ Para llamar a un contacto utilizamos un **Link**.
 Linking.openURL(`tel:${ prestamo.telefono() }`)
 ```
 
-Lo vemos en acción:
-
-![image](../images/llamando.png)
+![llamado](./images/llamado.gif)
 
 ## Enviar un mail
 
 Para enviar un mail, tenemos otro **Link** que Expo nos provee:
 
 ```tsx
-Linking.openURL(`mailto:${ prestamo.contactoMail() }`)
+Linking.openURL(`mailto:${
+    prestamo.contactoMail()
+}?subject=Libro ${
+    prestamo.libro.titulo 
+}&body=Por favor te pido que me devuelvas el libro`)
 ```
+
+![email](./images/email.gif)
 
 >Otra cosa interesante es que si configuramos nuestro correo en el emulador, tendremos acceso a los contactos (y podremos prestarle a ellos nuestros libros).

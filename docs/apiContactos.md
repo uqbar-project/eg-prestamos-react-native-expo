@@ -13,7 +13,7 @@ Es importante
 
 Definimos una interfaz RepoContactos con una implementación PhoneBasedContactos.
 
-## Vista principal: llamando al Bootstrap
+## Vista principal: llamando al PrestamosService
 
 En el componente de mayor nivel `App.tsx` llamamos a `PrestamosService` que le pide a un repo que incorpore contactos si no existen, mientras tanto muestro la pantalla de carga con `AppLoading`...
 
@@ -73,10 +73,6 @@ A su vez cada *raw contact* tiene n datos, donde el formato varía en base a la 
 * una foto
 * una cuenta de facebook
 * una cuenta de twitter
-
-Cada uno de estos datos representa un registro en la entidad, incluso podemos tener muchos teléfonos, o cuentas de twitter asociadas al mismo *raw contact*.
-
-![image](../images/contactDataType.png)
 
 ## Implementación del repositorio de contactos de Expo
 
@@ -189,11 +185,3 @@ async tienePermiso(): Promise<boolean> {
     return status === 'granted'
 }
 ```
-
-### Verificando la carga
-
-Para verificar que los contactos efectivamente son los del dispositivo, vamos a presionar el botón Home del emulador... y abrimos la aplicación de contactos:
-
-<!-- ![image](../images/contactosApp.png) -->
-
-... vemos los contactos que acabamos de generar. Incluso podemos generar un nuevo contacto y prestarle un libro desde nuestra app.

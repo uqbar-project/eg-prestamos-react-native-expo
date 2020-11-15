@@ -68,7 +68,11 @@ class PrestamosScreen extends PureComponent<PrestamosScreenProps, PrestamosScree
                 if (buttonIndex === 0) {
                     Linking.openURL(`tel:${ prestamo.telefono() }`)
                 } else if (buttonIndex === 1) {
-                    Linking.openURL(`mailto:${ prestamo.contactoMail() }`)
+                    Linking.openURL(`mailto:${
+                        prestamo.contactoMail()
+                    }?subject=Libro ${
+                        prestamo.libro.titulo 
+                    }&body=Por favor te pido que me devuelvas el libro`)
                 } else if (buttonIndex === 2) {
                     this.devolverPrestamo(prestamo)
                 }
