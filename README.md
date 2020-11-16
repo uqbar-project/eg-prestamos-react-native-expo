@@ -7,6 +7,8 @@ Desarrollar una aplicación que permita hacer un seguimiento de los libros que p
 ## React Native
 Es un framework de programación de aplicaciones nativas multiplataforma que está basado en React.
 
+[Documentación oficial de React Native.](https://reactnative.dev/docs/getting-started)
+
 Aclaraciones:
 - No permite ejecutar aplicaciones que tenemos ya desarrolladas con React.
 - No es una página web generada en un webview, sino que genera una aplicación nativa con un rendimiento casi similar al nativo.
@@ -23,6 +25,8 @@ El bridge de React Native es el que va a permitir la comunicación entre ambos t
 ## Expo
 
 Expo es un framework con un conjunto de herramientas, librerías y servicios los cuales te permiten desarrollar apps nativas en iOS y Android escritas en JavaScript. Expo utiliza Expo SDK, el cual es una librería nativa y de JavaScript que provee acceso a la funcionalidad del dispositivo como a la cámara, contactos, almacenamiento local, entre otros) **sin modificar código nativo**, ya que puede correr y visualizarse en cualquier dispositivo que tenga instalado la app de Expo, aún sin tener instalado Android Studio o Xcode.
+
+[Documentación oficial de expo.](https://docs.expo.io/)
 
 ## Instalación de entorno recomendada
 
